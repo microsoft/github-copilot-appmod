@@ -1,0 +1,46 @@
+name: GitHub Copilot app modernization Bug Report
+description: Report a bug or issue with the app modernization experience
+title: "[Bug]: "
+labels: bug
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for using GitHub Copilot app modernization. Please provide as much detail as possible to help us understand and resolve the issue you found. Let us know how you feel about the experience with [this survey](https://aka.ms/ghcp-appmod/survey).
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Describe the environment
+      placeholder: "Coding Platform (VS Code/Visual Studio/IntelliJ/GitHub Copilot CLI/GitHub Copilot coding agent)\nCoding Platform version:\nExtension name (if using IDE):\nExtension version (if using IDE):\nSelected model:\nOperating System:\n"
+    validations:
+      required: true
+    
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: How to Reproduce
+      description: Provide step-by-step instructions on how to reproduce the issue.
+      placeholder: "1. Open VS Code \n2. Run command...\n3. See error..."
+    validations:
+      required: true
+     
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Describe what you expected to happen. 
+      placeholder: "I expect to see..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: description
+    attributes:
+      label: Screenshots & Logs
+      description: Describe the issue you are encountering.
+      placeholder: "Please find, zip and attach the latest log files in\nFor VS Code/IntelliJ: <workspace>/.github/appmod and <workspace>/.github/java-upgrade\nFor Visual Studio: 'C:\\Users\\<user>\\AppData\\Local\\Temp\\VSGitHubCopilotLogs'\nAttach any screenshots that may help illustrate the issue."
+    validations:
+      required: false
