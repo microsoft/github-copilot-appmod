@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for using GitHub Copilot app modernization. Please provide as much detail as possible to help us understand and resolve the issue you found. Tell us your general feedback about the tool by filling out [this survey](https://aka.ms/ghcp-appmod/survey).
+        Thank you for using GitHub Copilot app modernization. Please provide as much detail as possible to help us understand and resolve the issue you found. Tell us your general feedback about the tool by filling out [this survey](https://aka.ms/ghcp-appmod/survey). Note that app modernization is a related but different tool from GitHub Copilot. For general Copilot feedback, open an issue for [Copilot on VS Code](https://github.com/microsoft/vscode/issues) or [Copilot on IntelliJ](https://github.com/microsoft/copilot-intellij/issues).
 
   - type: textarea
     id: environment
