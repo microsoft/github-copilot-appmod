@@ -1,0 +1,13 @@
+{
+  "name": "appmod-custom-tasks",
+  "version": "1.0.0",
+  "description": "Custom migration tasks template repository for GitHub Copilot App Modernization",
+  "scripts": {
+    "start": "node generate-metadata.js",
+    "generate": "node generate-metadata.js",
+    "validate": "node validate-task.js .."
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3"
+  }
+}

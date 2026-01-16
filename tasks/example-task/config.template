@@ -1,0 +1,10 @@
+# Example configuration template
+# Replace with your actual configuration properties
+
+# Before migration settings (comment out or remove)
+# old.service.endpoint=https://old-service.example.com
+# old.service.key=${OLD_SERVICE_KEY}
+
+# After migration settings
+new.service.endpoint=https://new-service.example.com
+new.service.key=${NEW_SERVICE_KEY}
