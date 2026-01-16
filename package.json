@@ -1,0 +1,11 @@
+{
+  "name": "appmod-custom-tasks",
+  "version": "1.0.0",
+  "description": "Custom migration tasks template repository for GitHub Copilot App Modernization",
+  "scripts": {
+    "start": "cd scripts && npm start",
+    "generate": "cd scripts && npm run generate",
+    "validate": "cd scripts && npm run validate",
+    "postinstall": "cd scripts && npm install"
+  }
+}
