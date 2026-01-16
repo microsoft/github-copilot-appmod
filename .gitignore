@@ -1,0 +1,21 @@
+# Dependencies
+scripts/node_modules/
+scripts/package-lock.json
+
+# Generated files
+metadata.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
