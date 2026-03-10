@@ -1,11 +1,10 @@
 {
-  "name": "appmod-custom-tasks",
+  "name": "appmod-custom-skills",
   "version": "1.0.0",
-  "description": "Custom migration tasks template repository for GitHub Copilot App Modernization",
+  "description": "Custom skills template repository for GitHub Copilot App Modernization",
   "scripts": {
-    "start": "node generate-metadata.js",
-    "generate": "node generate-metadata.js",
-    "validate": "node validate-task.js .."
+    "start": "node validate-skill.js",
+    "validate": "node validate-skill.js"
   },
   "dependencies": {
     "gray-matter": "^4.0.3"

@@ -1,146 +1,126 @@
-# Custom Tasks Template Repository
+# Custom Skills Template Repository
 
-A template repository for hosting custom migration tasks for the [GitHub Copilot App Modernization VS Code extension](https://marketplace.visualstudio.com/items?itemName=vscjava.migrate-java-to-azure).
+A template repository for hosting custom agent skills for the [GitHub Copilot App Modernization VS Code extension](https://marketplace.visualstudio.com/items?itemName=vscjava.migrate-java-to-azure).
+
+Skills follow the open [Agent Skills](https://agentskills.io/home) specification.
 
 ## Overview
 
-This repository serves as a template for teams to create and maintain their own private custom migration tasks. Clone or fork this repository to your Github, GitLab, or other Git hosting service to start building your own task library.
+This repository serves as a template for teams to create and maintain their own custom agent skills. Clone or fork this repository to your GitHub, GitLab, or other Git hosting service to start building your own skill library.
 
 ## Quick Start
 
 ### Setting Up Your Repository
 
-1. Clone this template repository to your Github, GitLab, or other Git hosting service
-2. Start adding your custom migration tasks
+1. Clone this template repository to your GitHub, GitLab, or other Git hosting service
+2. Start adding your custom skills in the `skills/` folder
 
-### Configuring the App Modernization Extension to use Your Repository
-  
-1. Enable the [appmod.enableCustomTaskRepository](https://vscode.dev/redirect?url=vscode://settings/appmod.enableCustomTaskRepository) setting to use custom task repositories.
-![Enable Custom Task Repository Setting](images/enable-custom-task-setting.png)
-2. Open the **GitHub Copilot App Modernization** extension in the Side Bar.
-![Manage Custom Tasks Workflow](images/manage-custom-tasks-workflow.png)
-3. Click the **Manage Custom Tasks** button in the **Tasks** view title bar.
-4. Switch to the **Available Tasks** tab.
-5. Click the **Manage Repositories** button to add your repository.
-![Add Repository](images/manage-custom-tasks-add-repository.png)
+### Configuring the App Modernization Extension
 
+1. Open the **GitHub Copilot App Modernization** extension in the Side Bar.
+2. Point the extension to your repository's `skills/` folder (or a custom folder path).
 
-### Adding a New Task to Your Repository
+### Adding a New Skill
 
-1. Create a new folder in `tasks/` with your task ID (e.g., `tasks/mysql-to-postgresql`)
-2. Add required files following the [Task Format Specification](#task-format-specification)
-3. Run `npm start` in the root directory to update metadata.json so the extension can recognize your new task.
-4. Commit and push your changes to your repository
+1. Create a new folder in `skills/` with your skill name (e.g., `skills/mysql-to-postgresql`)
+2. Add a `SKILL.md` file following the [Skill Format Specification](#skill-format-specification)
+3. Optionally add supporting files (`scripts/`, `references/`, `assets/`)
+4. Run `npm start` to validate your skills
+5. Commit and push your changes
 
 ## Repository Structure
 
 ```
-appmod-custom-tasks/
-├── metadata.json              # Auto-generated task index
+appmod-custom-skills/
 ├── README.md                  # This file
-├── CONTRIBUTING.md            # Contribution guidelines
 ├── scripts/
-│   ├── generate-metadata.js   # Generates metadata.json
-│   ├── validate-task.js       # Validates task format
+│   ├── validate-skill.js      # Validates skill format
 │   ├── lib/                   # Shared utilities
 │   └── package.json           # Node.js dependencies
-└── tasks/                     # All task folders go here
-    └── <task-id>/
-        ├── task.md            # Main task definition (required)
-        └── ...                # Additional files (optional)
+└── skills/                    # All skill folders go here (default scan folder)
+    └── <skill-name>/
+        ├── SKILL.md           # Main skill definition (required)
+        ├── scripts/           # Optional: executable scripts
+        ├── references/        # Optional: additional documentation
+        └── assets/            # Optional: static resources
 ```
 
-## Task Format Specification
+## Skill Format Specification
+
+Each skill follows the [Agent Skills specification](https://agentskills.io/specification).
 
 ### Folder Structure
 
-Each task must be in its own folder inside the `tasks/` directory:
+Each skill must be in its own folder inside the `skills/` directory:
 
 ```
-tasks/
-└── my-task-id/
-    ├── task.md                    # Required: Main task definition
-    ├── example-before.java        # Optional: Before code example
-    ├── example-after.java         # Optional: After code example
-    ├── config.properties.template # Optional: Configuration template
-    └── README.md                  # Optional: Additional documentation
+skills/
+└── my-skill-name/
+    ├── SKILL.md               # Required: Main skill definition
+    ├── scripts/               # Optional: Executable scripts
+    │   └── transform.py
+    ├── references/            # Optional: Additional documentation
+    │   └── REFERENCE.md
+    └── assets/                # Optional: Static resources
+        └── template.yml
 ```
 
 ### Naming Conventions
 
-- **Folder name**: Lowercase with hyphens (e.g., `aws-s3-to-azure-blob`)
-- **Folder name should match the task ID** in the frontmatter
+- **Folder name**: Lowercase alphanumeric with hyphens (e.g., `aws-s3-to-azure-blob`)
+- **Folder name must match the `name` field** in the SKILL.md frontmatter
+- Must not start or end with a hyphen
+- Must not contain consecutive hyphens (`--`)
+- Maximum 64 characters
 
-### task.md Requirements
+### SKILL.md Requirements
 
-The `task.md` file must include YAML frontmatter and follow the standard format:
+The `SKILL.md` file must include YAML frontmatter followed by Markdown instructions:
 
 ```markdown
 ---
-id: my-task-id
-name: Human Readable Task Name
-type: task
+name: my-skill-name
+description: A clear description of what this skill does and when to use it.
 ---
 
-**Prompt:**
+# My Skill Name
 
-Your task prompt content here...
-
-**References:**
-- file:///example.java
-- git+file:///changes.diff
-- https://docs.microsoft.com/azure/...
+Step-by-step instructions for the agent...
 ```
-
-#### Required Sections
-
-| Section | Required | Description |
-|---------|----------|-------------|
-| YAML Frontmatter | ✅ Yes | Must include `id`, `name`, `type` fields |
-| `**Prompt:**` | ✅ Yes | Main task description/prompt |
-| `**References:**` | ⚠️ Recommended | List of file and URL references |
 
 #### Frontmatter Fields
 
-| Field | Description | Example |
-|-------|-------------|---------|
-| `id` | Unique identifier (should match folder name) | `aws-s3-to-azure-blob` |
-| `name` | Human-readable display name | `Migrate AWS S3 to Azure Blob Storage` |
-| `type` | Task type (currently only `task`) | `task` |
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Unique identifier, max 64 chars. Lowercase alphanumeric + hyphens. Must match folder name. |
+| `description` | Yes | What the skill does and when to use it, max 1024 chars. |
+| `license` | No | License name or reference to a bundled license file. |
+| `compatibility` | No | Environment requirements (intended product, system packages, etc.), max 500 chars. |
+| `metadata` | No | Arbitrary key-value mapping for additional metadata. |
+| `allowed-tools` | No | Space-delimited list of pre-approved tools. (Experimental) |
 
-#### Task Constraints
+#### Body Content
 
-- **Unique ID**: Each task must have a unique `id` in the frontmatter. Duplicate IDs are not allowed and will cause the metadata generation to fail.
-- **ID Format**: Task IDs should be lowercase with hyphens (e.g., `kafka-to-eventhubs`).
-- **Folder-ID Match**: The task folder name should match the `id` field in the frontmatter.
+The Markdown body after the frontmatter contains the skill instructions. Recommended sections:
+- Step-by-step instructions
+- Examples of inputs and outputs
+- Common edge cases
 
-#### References Format
+Keep the main `SKILL.md` under 500 lines. Move detailed reference material to the `references/` directory.
 
-The `**References:**` section links to supporting files and documentation:
-> You can add references, for example code diffs to your task. Supported formats include:
+### Optional Directories
 
-- **Local files**: `file:///filename.java` - References files in the same task folder
-- **Diff files**: `git+file:///changes.diff` - Git diff files for code changes
-- **URLs**: `https://docs.example.com/` - External documentation links
-
-> **Note:** When you run `npm start`, the script automatically syncs file references with actual files in the task folder.
-
-### Additional Files
-
-You can include any supporting files in your task folder:
-
-- **Code examples** (`.java`, `.py`, `.cs`, etc.)
-- **Configuration templates** (`.properties`, `.yml`, `.json`)
-- **Git diff files** (`.diff`, `.patch`)
-- **Documentation** (`.md`)
-
-All files should be placed directly in the task folder.
+| Directory | Purpose |
+|-----------|---------|
+| `scripts/` | Executable code that agents can run (Python, Bash, JavaScript, etc.) |
+| `references/` | Additional documentation agents can read on demand |
+| `assets/` | Static resources: templates, images, data files, schemas |
 
 ## Development
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm
 
 ### Setup
@@ -149,27 +129,37 @@ All files should be placed directly in the task folder.
 npm install
 ```
 
-### Generate Metadata
+### Validate Skills
 
-After adding or modifying tasks, regenerate the metadata:
+Validate all skills in the default `skills/` folder:
 
 ```bash
 npm start
 ```
 
-### Validate Tasks
-
-To validate task format locally:
+Validate skills in a custom folder:
 
 ```bash
-npm run validate
+cd scripts && node validate-skill.js --dir my-custom-folder
+```
+
+Validate specific skills:
+
+```bash
+cd scripts && node validate-skill.js my-skill-name another-skill
 ```
 
 ### Types of Contributions
 
-- 🆕 **New Tasks**: Migration patterns for different technologies
-- 🐛 **Bug Fixes**: Fixes to existing tasks
-- 📖 **Documentation**: Improvements to task documentation
+- 🆕 **New Skills**: Agent capabilities for different migration patterns
+- 🐛 **Bug Fixes**: Fixes to existing skills
+- 📖 **Documentation**: Improvements to skill documentation
+
+## Learn More
+
+- [Agent Skills Specification](https://agentskills.io/specification)
+- [What are Agent Skills?](https://agentskills.io/what-are-skills)
+- [Example Skills](https://github.com/anthropics/skills)
 
 ## License
 
