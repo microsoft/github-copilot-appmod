@@ -14,7 +14,7 @@ body:
     attributes:
       label: Environment
       description: Describe the environment
-      placeholder: "Coding Platform: (VS Code/Visual Studio/IntelliJ/GitHub Copilot CLI/GitHub Copilot coding agent)\nCoding Platform version:\nExtension name (if using IDE):\nExtension version (if using IDE):\nLanguage of your code: (Java/.NET/Python)\nSelected model:\nOperating System:\n"
+      placeholder: "Coding Platform: (VS Code/Visual Studio/IntelliJ/Modernize CLI/GitHub Copilot CLI/GitHub Copilot coding agent)\nCoding Platform version:\nExtension name (if using IDE):\nExtension version (if using IDE):\nLanguage of your code: (Java/.NET/Python)\nSelected model:\nOperating System:\n"
     validations:
       required: true
     
